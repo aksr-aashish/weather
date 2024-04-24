@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How it Works - Weather App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header">
+        <div class="credit">
+          Weather App by <a href="https://www.github.com/aksr-aashish">Aashish Singh</a>
+        </div>
+      </div>
+    </header>
+    <div class="card how-it-works">
+      <h1>How it Works</h1>
+      <div class="steps">
+        <div class="step">
+          <h2>1.Enter City Name</h2>
+          <p>
+            \n\nType the name of the city you want to check the weather for in the search box.
+          </p>
+        </div>
+        <div class="step">
+          <h2>2. Click the Search Button</h2>
+          <p>
+            After entering the city name, click the search button or press Enter to fetch the weather data.
+          </p>
+        </div>
+        <div class="step">
+          <h2>3. View Weather Data</h2>
+          <p>
+            The weather data, including temperature, humidity, wind speed, and weather icon, will be displayed for the specified city.
+          </p>
+        </div>
+      </div>
+      <div class="additional-info">
+        <h2>Additional Information</h2>
+        <p>
+          The weather data is fetched from the OpenWeatherMap API using the user-entered city name. The API returns the current weather data, including temperature, humidity, wind speed, and weather icon.
+        </p>
+        <p>
+          The application uses modern CSS for styling and is responsive, ensuring a consistent user experience across different devices and screen sizes.
+        </p>
+      </div>
+    </div>
+    <button class="back-btn">Back</button>
+    <footer><p class="copyright">&copy; 2024 Aashish. All rights reserved.</p>
+    </footer>
+    <script>
+      const backBtn = document.querySelector(".back-btn");
+
+      backBtn.addEventListener("click", () => {
+        window.history.back();
+      });
+    </script>
+  </body>
+</html>

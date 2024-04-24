@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App - Aashish Singh</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header">
+        <div class="credit">
+          Weather App by <a href="https://www.github.com/aksr-aashish">Aashish Singh</a>
+        </div>
+      </div>
+    </header>
+    <button class="more-btn">More</button>
+    <div class="card">
+      <div class="search">
+        <input type="text" placeholder="Enter City name" spellcheck="false" />
+        <button><img src="images/search.png" /></button>
+      </div>
+      <div class="Weather"></div>
+      <img src="images/rain.png" class="Weather-icon" />
+      <h1 class="temp">22ºC</h1>
+      <h2 class="city">New York</h2>
+      <div class="details">
+        <div class="col">
+          <img src="images/humidity.png" />
+          <div>
+            <p class="humidity">50%</p>
+            <p>Humidity</p>
+          </div>
+        </div>
+
+        <div class="col">
+          <img src="images/wind.png" />
+          <div>
+            <p class="wind">50 Km/h</p>
+            <p>Wind Speed </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <p class="copyright">&copy; 2024 Aashish Singh. All rights reserved.</p>
+    </div>
+    <script>
+      const apiKeys = "058c07c845db65c6a1066a1e40809848";
+      const apiUrl = "https://api.openweathermap.org/data/2.5/weather";
+      const searchBox = document.querySelector(".search input");
+      const searchBtn = document.querySelector(".search button");
+      const weatherIcon = document.querySelector(".Weather-icon");
+      const weather = document.querySelector(".Weather");
+
+      async function checkWeather() {
+        const city = searchBox.value;
+        const response = await fetch(apiUrl + "?q=" + city + `&appid=${apiKeys}&units=metric`);
+
+        // Handle errors
+        if (!response.ok) {
+          alert('Error: Unable to retrieve weather data.');
+          return;
+        }
+
+        var data = await response.json();
+
+        console.log(data);
+
+        if (data.cod === 200) {
+          if (data.main !== undefined) {
+            document.querySelector(".city").innerHTML = data.name;
+            document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "ºC";
+            document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+          } else {
+            // Handle the case where data.main is undefined
+            alert('Error: Unable to retrieve weather data.');
+          }
+
+          if (data.wind !== undefined) {
+            document.querySelector(".wind").innerHTML = data.wind.speed + "Km/h";
+          } else {
+            // Handle the case where data.wind is undefined
+            alert('Error: Unable to retrieve wind data.');
+          }
+
+          // Set the weather icon
+          switch (data.weather[0].main) {
+            case "Clouds":
+              weatherIcon.src = "images/clouds.png";
+              break;
+            case "Clear":
+              weatherIcon.src = "images/clear.png";
+              break;
+           case "Rain":
+              weatherIcon.src = "images/rain.png";
+             break;
+            case "Drizzle":
+              weatherIcon.src = "images/drizzle.png";
+              break;
+            case "Mist":
+              weatherIcon.src = "images/mist.png";
+              break;
+            default:
+              weatherIcon.src = "images/default.png";
+          }
+
+          // Show the weather data
+          weather.style.display = "block";
+        } else {
+          // Handle the case where the city is not found
+          alert('City not found. Please enter a valid city name.');
+        }
+      }
+
+      searchBtn.addEventListener("click", checkWeather);
+
+      const moreBtn = document.querySelector(".more-btn");
+
+      moreBtn.addEventListener("click", () => {
+        window.open("how-it-works.html", "_blank");
+      });
+    </script>
+  </body>
+</html>
